@@ -1,123 +1,319 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=10">
-  <title>Personal site</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced Planner - Calendar & Timer App</title>
+  <style>
+    /* General Styling */
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #1d1f21, #282b30);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin-top: 20px;
+    }
+    .section {
+      background: #333;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      margin-bottom: 20px;
+      color: #00ffcc;
+    }
+
+    /* Navbar */
+    nav {
+      width: 100%;
+      background: #444;
+      padding: 15px;
+      text-align: center;
+    }
+    nav h1 {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    /* Current Time */
+    #currentTime {
+      font-size: 1.5em;
+      margin-top: 10px;
+    }
+
+    /* Calendar */
+    #calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+    }
+    .day {
+      background: #444;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background 0.3s;
+      cursor: pointer;
+    }
+    .day:hover {
+      background: #555;
+    }
+    .task-day {
+      background: #00aaff; /* Color for days with tasks */
+    }
+    .past-due {
+      background: #ff5555; /* Color for past-due tasks */
+    }
+    .today {
+      background: #00ffcc; /* Highlight for today's date */
+      color: #000;
+    }
+
+    /* Timer */
+    .timer-container input {
+      width: 50px;
+      padding: 5px;
+      font-size: 1em;
+      margin: 5px;
+      text-align: center;
+    }
+    .timer-buttons button {
+      padding: 10px 15px;
+      margin: 5px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .start { background: #28a745; }
+    .pause { background: #ffc107; }
+    .reset { background: #dc3545; }
+
+    /* Task List */
+    .task-list ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .task-list li {
+      padding: 5px;
+      margin: 5px 0;
+      background: #222;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .task-list input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    .remove-btn {
+      background: #ff5555;
+      border: none;
+      padding: 5px;
+      cursor: pointer;
+      border-radius: 5px;
+      color: #fff;
+    }
+  </style>
 </head>
+<body>
 
-<body style="background-image: url(IMAGES/bg2.png); background-size:cover; background-repeat: no-repeat ; align;Right ">
-  <table cellpadding="5">
-    <tr>
-      <td><img src="IMAGES/faceless-man-character-vector-12087168-modified.png" width="100" alt=""></td>
-      <td>
-        <h1 style="color:">David Hebrew</h1>
-      </td>
-    </tr>
-  </table>
+<!-- Navbar -->
+<nav>
+  <h1>Mahdin Planner - Calendar & Timer App</h1>
+</nav>
 
+<div class="container">
 
+  <!-- Current Time Display -->
+  <div id="currentTime" class="section"></div>
 
-  <div style="float:left">
-    <br>
+  <!-- Calendar with Task List -->
+  <div class="section">
+    <h2>Calendar</h2>
+    <div id="calendarHeader" class="text-center font-bold text-xl"></div>
+    <div id="calendar"></div>
   </div>
-  <div style="float:right;"><a color="black" href="http://www.facebook.com"><img src="IMAGES/fb.png" width="28" alt=""></a> <a href="https://www.instagram.com/"><img src="IMAGES/in.png" width="30" alt=""></a>
-    <a href="https://www.linkedin.com/login"><img src="
-  IMAGES/lk.png" width="30" alt=""></a>
-    &nbsp;
+
+  <!-- Task List for Selected Date -->
+  <div id="taskListContainer" class="section" style="display: none;">
+    <h3>Tasks for <span id="taskDate"></span></h3>
+    <ul id="tasks" class="task-list"></ul>
+    <button onclick="addTask()">Add Task</button>
   </div>
-  <p style="color: ">Will be applying for <a href="https://www.cam.ac.uk/"><strong><em style="color:gray ">Cambridge university</em></strong></a> next year in the field of <strong style="color: ">COMPUTER SCIENCE</strong>.</p>
-  <hr size="5" color="#2980B9 ">
-  <h2 style="color:">Qualifications :
-    <hr width="150" size="4" align="left" color="#2980B9 ">
-  </h2>
-  <ul>
-    <li>
-      <p style="color: ">Qualified O-Level with <strong size="5" style="color:">A+ Grade</strong> </p>
-    </li>
-    <li>
-      <p style="color:  ">Qualified A-Level With <strong style="color:">A Grade</strong> </p>
-    </li>
-    <li>
-      <p style="color:">Qualified the test of SAT <strong style="color:">90% </strong>Marks </p>
-    </li>
-  </ul>
-  <hr size="5" color="#2980B9">
-  <h3>SKILLS</h3>
-  <hr width="65" size="4" align="left" color="#2980B9 ">
-  <table cellspacing="10" cellpadding="10" style="border-style:solid;border-width: thick;border-color:gray; border-radius:10px">
-    <thead>
-      <th>Skills</th>
-      <th>Experience</th>
-      <th>Skills</th>
-      <th>Experience</th>
-    </thead>
-    <tr>
-      <td><strong>Programming</strong></td>
-      <td>⭐⭐⭐⭐⭐</td>
-      <td><strong>Critical Thinking</strong></td>
-      <td>⭐⭐⭐⭐⭐</td>
 
-    </tr>
+  <!-- Timer Section -->
+  <div class="section">
+    <h2>Timer with Alarm Sound</h2>
+    <div class="timer-container">
+      <input type="number" id="hours" placeholder="HH" min="0">
+      <input type="number" id="minutes" placeholder="MM" min="0">
+      <input type="number" id="seconds" placeholder="SS" min="0">
+    </div>
+    <div id="timerDisplay" class="text-3xl">00:00:00</div>
+    <label>Upload Alarm Sound:
+      <input type="file" id="soundFile" accept="audio/*">
+    </label>
+    <div class="timer-buttons">
+      <button class="start" onclick="startTimer()">Start</button>
+      <button class="pause" onclick="pauseTimer()">Pause</button>
+      <button class="reset" onclick="resetTimer()">Reset</button>
+    </div>
+  </div>
 
-    <tr>
-      <td><strong>Soft Skill</strong></td>
-      <td>⭐⭐⭐⭐</td>
-      <td><strong>Teamwork</strong></td>
-      <td>⭐⭐</td>
+</div>
 
-    </tr>
+<script>
+  // Timer and Audio
+  let timer;
+  let totalSeconds = 0;
+  let alarmSound = new Audio();
+  document.getElementById('soundFile').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+      alarmSound.src = URL.createObjectURL(file);
+      alarmSound.load();
+    }
+  });
 
-    <tr>
-      <td><strong>Problem Solving</strong></td>
-      <td>⭐⭐⭐⭐</td>
-      <td><strong>Time Management</strong></td>
-      <td>⭐⭐⭐</td>
+  function startTimer() {
+    const hours = parseInt(document.getElementById("hours").value) || 0;
+    const minutes = parseInt(document.getElementById("minutes").value) || 0;
+    const seconds = parseInt(document.getElementById("seconds").value) || 0;
+    totalSeconds = hours * 3600 + minutes * 60 + seconds;
+    if (totalSeconds <= 0) {
+      alert("Please set a valid time!");
+      return;
+    }
+    timer = setInterval(() => {
+      if (totalSeconds <= 0) {
+        clearInterval(timer);
+        if (alarmSound.src) alarmSound.play();
+        alert("Time's up!");
+      } else {
+        totalSeconds--;
+        updateTimerDisplay();
+      }
+    }, 1000);
+  }
+  function updateTimerDisplay() {
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    document.getElementById("timerDisplay").textContent = 
+      `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  }
+  function pauseTimer() {
+    clearInterval(timer);
+  }
+  function resetTimer() {
+    clearInterval(timer);
+    totalSeconds = 0;
+    updateTimerDisplay();
+    if (alarmSound.src) alarmSound.pause();
+  }
 
-    </tr>
+  // Real-time Clock
+  setInterval(() => {
+    const now = new Date();
+    document.getElementById('currentTime').textContent = now.toLocaleTimeString();
+  }, 1000);
 
-    <tr>
-      <td><strong>Marketing</strong></td>
-      <td>⭐⭐⭐</td>
-      <td><strong>HTML & CSS</strong></td>
-      <td>⭐⭐⭐⭐⭐</td>
+  // Calendar
+  let currentYear = new Date().getFullYear();
+  let currentMonth = new Date().getMonth();
+  let selectedDay = null;
+  const tasksByDate = JSON.parse(localStorage.getItem("tasksByDate")) || {};
 
-    </tr>
-    <tr>
-      <td>MS Office: Word, <br>Excel, PowerPoint</td>
-      <td>⭐⭐⭐⭐⭐</td>
-      <td><strong>Storytelling</strong></td>
-      <td>⭐⭐⭐⭐</td>
-    </tr>
-    <tr>
-      <td><strong>Adaptability</strong></td>
-      <td>⭐⭐⭐⭐⭐</td>
-      <td><strong>Creativity</strong></td>
-      <td>⭐⭐⭐⭐</td>
-    </tr>
-    <tr>
+  function renderCalendar() {
+    const monthNames = ["January", "February", "March", "April", "May", "June", 
+                        "July", "August", "September", "October", "November", "December"];
+    document.getElementById("calendarHeader").textContent = 
+      `${monthNames[currentMonth]} ${currentYear}`;
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const calendarDiv = document.getElementById("calendar");
+    calendarDiv.innerHTML = "<div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>";
+    for (let i = 0; i < firstDay; i++) calendarDiv.innerHTML += "<div></div>";
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dayDiv = document.createElement("div");
+      dayDiv.textContent = day;
+      dayDiv.classList = "day";
+      if (new Date().getDate() === day && new Date().getMonth() === currentMonth && new Date().getFullYear() === currentYear) {
+        dayDiv.classList.add("today");
+      }
+      if (tasksByDate[`${currentYear}-${currentMonth}-${day}`]) dayDiv.classList.add("task-day");
+      dayDiv.addEventListener("click", () => openTaskList(day));
+      calendarDiv.appendChild(dayDiv);
+    }
+  }
 
-      <td><strong>Bootstrape</strong></td>
-      <td>⭐⭐⭐⭐</td>
-    </tr>
-  </table><hr size="5" color="#2980B9">
-  <h2 style="color: ">More About Me :</h2>
-  <hr width="150" size="4" align="left" color="#2980B9 ">
-  <ul style="color: ">
-    <li><a href="1.html" style="color:black">
-        <h3>Hobbies & Habits</h3>
-      </a></li>
-    <li><a href="2.html" style="color:black">
-        <h3>Contact Details</h3>
-      </a>
-    </li>
-  </ul>
+  // Tasks
+  function openTaskList(day) {
+    selectedDay = day;
+    const taskListContainer = document.getElementById("taskListContainer");
+    taskListContainer.style.display = "block";
+    const dateKey = `${currentYear}-${currentMonth}-${day}`;
+    document.getElementById("taskDate").textContent = dateKey;
+    const tasks = tasksByDate[dateKey] || [];
+    renderTasks(tasks);
+  }
 
+  function renderTasks(tasks) {
+    const taskUl = document.getElementById("tasks");
+    taskUl.innerHTML = "";
+    tasks.forEach((task, index) => {
+      const taskLi = document.createElement("li");
+      const taskCheckbox = document.createElement("input");
+      taskCheckbox.type = "checkbox";
+      taskCheckbox.checked = task.completed;
+      taskCheckbox.addEventListener("change", () => toggleTaskComplete(index));
+      const taskText = document.createElement("span");
+      taskText.textContent = task.text;
+      const removeBtn = document.createElement("button");
+      removeBtn.textContent = "Remove";
+      removeBtn.classList.add("remove-btn");
+      removeBtn.addEventListener("click", () => removeTask(index));
+      taskLi.append(taskCheckbox, taskText, removeBtn);
+      taskUl.appendChild(taskLi);
+    });
+  }
 
+  function addTask() {
+    const taskText = prompt("Enter a task:");
+    if (taskText) {
+      const dateKey = `${currentYear}-${currentMonth}-${selectedDay}`;
+      tasksByDate[dateKey] = tasksByDate[dateKey] || [];
+      tasksByDate[dateKey].push({ text: taskText, completed: false });
+      localStorage.setItem("tasksByDate", JSON.stringify(tasksByDate));
+      renderTasks(tasksByDate[dateKey]);
+      renderCalendar();
+    }
+  }
 
+  function toggleTaskComplete(index) {
+    const dateKey = `${currentYear}-${currentMonth}-${selectedDay}`;
+    tasksByDate[dateKey][index].completed = !tasksByDate[dateKey][index].completed;
+    localStorage.setItem("tasksByDate", JSON.stringify(tasksByDate));
+  }
+
+  function removeTask(index) {
+    const dateKey = `${currentYear}-${currentMonth}-${selectedDay}`;
+    tasksByDate[dateKey].splice(index, 1);
+    if (tasksByDate[dateKey].length === 0) delete tasksByDate[dateKey];
+    localStorage.setItem("tasksByDate", JSON.stringify(tasksByDate));
+    renderTasks(tasksByDate[dateKey] || []);
+    renderCalendar();
+  }
+
+  renderCalendar();
+</script>
 
 </body>
-
-
 </html>
